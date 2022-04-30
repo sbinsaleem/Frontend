@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+  backend:
+    build: 
+      context: /home/ubuntu2/gitworkspace/project-phase-1/Backend
+      dockerfile: Dockerfile
+#    init: true
+    deploy:
+      replicas: 3
+    networks:
+    - application
+  frontend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    init: true
+    deploy:
+      replicas: 2
+    networks:
+    - application
+    ports:
+    - "9091-9095:8080"
+    depends_on:
+    - backend
+networks:
+  application:
+    name: application
